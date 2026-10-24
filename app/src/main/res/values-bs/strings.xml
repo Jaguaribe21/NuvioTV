@@ -956,11 +956,11 @@
     <string name="audio_dialog_tab_tracks">Zvuk</string>
     <string name="audio_dialog_tab_mix">Mix</string>
     <string name="audio_mix_label">Pojačanje (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Sačuvaj za idući put: UKLJUČENO</string>
     <string name="audio_mix_persist_off">Sačuvaj za idući put: ISKLJUČENO</string>
-    <string name="audio_mix_range">Raspon: %1$d dB do %2$d dB</string>
-    <string name="audio_mix_range_saved">Raspon: %1$d dB do %2$d dB (sačuvano)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Pojačanje nije dostupno na ovom uređaju</string>
 
     <!-- SubtitleDialog / SubtitleStyleSidePanel -->

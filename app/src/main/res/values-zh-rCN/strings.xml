@@ -1813,11 +1813,11 @@
     <string name="audio_delay_label">音频延迟</string>
     <string name="audio_delay_range">范围：%1$.2fs 至 %2$.2fs</string>
     <string name="audio_mix_label">放大 (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">在会话之间保留：开启</string>
     <string name="audio_mix_persist_off">在会话之间保留：关闭</string>
-    <string name="audio_mix_range">范围：%1$d dB 至 %2$d dB</string>
-    <string name="audio_mix_range_saved">范围：%1$d dB 至 %2$d dB (已保存)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">此设备不支持放大功能</string>
     <string name="audio_center_mix_label">混音下转：中央混音电平</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

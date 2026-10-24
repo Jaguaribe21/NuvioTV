@@ -1816,11 +1816,11 @@
     <string name="audio_delay_label">অডিও ডিলে</string>
     <string name="audio_delay_range">রেঞ্জ: %1$.2fs থেকে %2$.2fs</string>
     <string name="audio_mix_label">অ্যামপ্লিফিকেশন (পিসিএম)</string>
-    <string name="audio_mix_value_db">%1$d ডিবি</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">সেশনগুলোর মধ্যে বজায় রাখুন: চালু</string>
     <string name="audio_mix_persist_off">সেশনগুলোর মধ্যে বজায় রাখুন: বন্ধ</string>
-    <string name="audio_mix_range">রেঞ্জ: %1$d ডিবি থেকে %2$d ডিবি</string>
-    <string name="audio_mix_range_saved">রেঞ্জ: %1$d ডিবি থেকে %2$d ডিবি (সেভ করা হয়েছে)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">এই ডিভাইসে অ্যামপ্লিফিকেশন উপলব্ধ নয়</string>
     <string name="audio_center_mix_label">ডাউনমিক্স: সেন্টার মিক্স লেভেল</string>
     <string name="audio_center_mix_value_db">%1$d ডিবি</string>

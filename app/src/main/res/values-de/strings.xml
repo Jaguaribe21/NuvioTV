@@ -1271,11 +1271,11 @@
     <string name="audio_delay_label">Audio Delay</string>
     <string name="audio_delay_range">Range: %1$.2fs to %2$.2fs</string>
     <string name="audio_mix_label">Verstärkung (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Zwischen Sitzungen speichern: EIN</string>
     <string name="audio_mix_persist_off">Zwischen Sitzungen speichern: AUS</string>
-    <string name="audio_mix_range">Bereich: %1$d dB bis %2$d dB</string>
-    <string name="audio_mix_range_saved">Bereich: %1$d dB bis %2$d dB (gespeichert)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Verstärkung ist auf diesem Gerät nicht verfügbar</string>
 
     <!-- SubtitleDialog / SubtitleStyleSidePanel -->

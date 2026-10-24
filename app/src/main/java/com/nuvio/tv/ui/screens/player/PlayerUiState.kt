@@ -106,7 +106,8 @@ data class PlayerUiState(
     val chapters: List<PlayerChapter> = emptyList(),
     val showChaptersPanel: Boolean = false,
     val audioDelayMs: Int = 0,
-    val audioAmplificationDb: Int = 0,
+    // Volume do player em % (100 = original). Antes era amplificação em dB.
+    val audioAmplificationDb: Int = PLAYER_VOLUME_DEFAULT_PERCENT,
     val isAudioAmplificationAvailable: Boolean = false,
     val persistAudioAmplification: Boolean = false,
     val centerMixLevelDb: Int = 0,

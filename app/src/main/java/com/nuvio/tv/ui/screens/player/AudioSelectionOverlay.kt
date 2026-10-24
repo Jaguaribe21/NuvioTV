@@ -90,9 +90,9 @@ internal fun AudioSelectionOverlay(
     val currentDelayMs = audioDelayMs.coerceIn(AUDIO_DELAY_MIN_MS, AUDIO_DELAY_MAX_MS)
     val canDecreaseDelay = currentDelayMs > AUDIO_DELAY_MIN_MS
     val canIncreaseDelay = currentDelayMs < AUDIO_DELAY_MAX_MS
-    val currentDb = audioAmplificationDb.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
-    val canDecreaseAmp = isAmplificationAvailable && currentDb > AUDIO_AMPLIFICATION_MIN_DB
-    val canIncreaseAmp = isAmplificationAvailable && currentDb < AUDIO_AMPLIFICATION_MAX_DB
+    val currentDb = audioAmplificationDb.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+    val canDecreaseAmp = isAmplificationAvailable && currentDb > PLAYER_VOLUME_MIN_PERCENT
+    val canIncreaseAmp = isAmplificationAvailable && currentDb < PLAYER_VOLUME_MAX_PERCENT
     val currentCenterMixDb = centerMixLevelDb.coerceIn(CENTER_MIX_LEVEL_MIN_DB, CENTER_MIX_LEVEL_MAX_DB)
     val canDecreaseCenterMix = isCenterMixAvailable && currentCenterMixDb > CENTER_MIX_LEVEL_MIN_DB
     val canIncreaseCenterMix = isCenterMixAvailable && currentCenterMixDb < CENTER_MIX_LEVEL_MAX_DB
@@ -394,9 +394,9 @@ private fun AudioControlsContent(
     val currentDelayMs = audioDelayMs.coerceIn(AUDIO_DELAY_MIN_MS, AUDIO_DELAY_MAX_MS)
     val canDecreaseDelay = currentDelayMs > AUDIO_DELAY_MIN_MS
     val canIncreaseDelay = currentDelayMs < AUDIO_DELAY_MAX_MS
-    val currentDb = audioAmplificationDb.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
-    val canDecreaseAmp = isAmplificationAvailable && currentDb > AUDIO_AMPLIFICATION_MIN_DB
-    val canIncreaseAmp = isAmplificationAvailable && currentDb < AUDIO_AMPLIFICATION_MAX_DB
+    val currentDb = audioAmplificationDb.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+    val canDecreaseAmp = isAmplificationAvailable && currentDb > PLAYER_VOLUME_MIN_PERCENT
+    val canIncreaseAmp = isAmplificationAvailable && currentDb < PLAYER_VOLUME_MAX_PERCENT
     val currentCenterMixDb = centerMixLevelDb.coerceIn(CENTER_MIX_LEVEL_MIN_DB, CENTER_MIX_LEVEL_MAX_DB)
     val canDecreaseCenterMix = isCenterMixAvailable && currentCenterMixDb > CENTER_MIX_LEVEL_MIN_DB
     val canIncreaseCenterMix = isCenterMixAvailable && currentCenterMixDb < CENTER_MIX_LEVEL_MAX_DB
@@ -458,13 +458,13 @@ private fun AudioControlsContent(
         !isAmplificationAvailable -> stringResource(R.string.audio_mix_unavailable)
         persistAmplification -> stringResource(
             R.string.audio_mix_range_saved,
-            AUDIO_AMPLIFICATION_MIN_DB,
-            AUDIO_AMPLIFICATION_MAX_DB
+            PLAYER_VOLUME_MIN_PERCENT,
+            PLAYER_VOLUME_MAX_PERCENT
         )
         else -> stringResource(
             R.string.audio_mix_range,
-            AUDIO_AMPLIFICATION_MIN_DB,
-            AUDIO_AMPLIFICATION_MAX_DB
+            PLAYER_VOLUME_MIN_PERCENT,
+            PLAYER_VOLUME_MAX_PERCENT
         )
     }
 
@@ -537,26 +537,28 @@ private fun AudioControlsContent(
                 upFocusRequester = firstDelayFocusRequester,
                 downFocusRequester = firstCenterFocusRequester,
                 onDecrease = {
-                    val nextDb = currentDb - 1
-                    val target = if (nextDb <= AUDIO_AMPLIFICATION_MIN_DB && canIncreaseAmp) {
+                    val nextDb = (currentDb - PLAYER_VOLUME_STEP_PERCENT)
+                        .coerceAtLeast(PLAYER_VOLUME_MIN_PERCENT)
+                    val target = if (nextDb <= PLAYER_VOLUME_MIN_PERCENT && canIncreaseAmp) {
                         AudioControlFocusTarget.AmpPlus
                     } else {
                         AudioControlFocusTarget.AmpMinus
                     }
                     onAmplificationChange(nextDb, target)
-                    if (nextDb <= AUDIO_AMPLIFICATION_MIN_DB && canIncreaseAmp) {
+                    if (nextDb <= PLAYER_VOLUME_MIN_PERCENT && canIncreaseAmp) {
                         runCatching { ampPlusFocusRequester.requestFocus() }
                     }
                 },
                 onIncrease = {
-                    val nextDb = currentDb + 1
-                    val target = if (nextDb >= AUDIO_AMPLIFICATION_MAX_DB && canDecreaseAmp) {
+                    val nextDb = (currentDb + PLAYER_VOLUME_STEP_PERCENT)
+                        .coerceAtMost(PLAYER_VOLUME_MAX_PERCENT)
+                    val target = if (nextDb >= PLAYER_VOLUME_MAX_PERCENT && canDecreaseAmp) {
                         AudioControlFocusTarget.AmpMinus
                     } else {
                         AudioControlFocusTarget.AmpPlus
                     }
                     onAmplificationChange(nextDb, target)
-                    if (nextDb >= AUDIO_AMPLIFICATION_MAX_DB && canDecreaseAmp) {
+                    if (nextDb >= PLAYER_VOLUME_MAX_PERCENT && canDecreaseAmp) {
                         runCatching { ampMinusFocusRequester.requestFocus() }
                     }
                 }

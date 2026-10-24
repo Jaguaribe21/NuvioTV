@@ -27,8 +27,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-internal const val AUDIO_AMPLIFICATION_MIN_DB = 0
-internal const val AUDIO_AMPLIFICATION_MAX_DB = 10
+// Volume do player (substitui a antiga "Amplificação PCM").
+// O valor guardado em `audioAmplificationDb` agora é uma porcentagem de volume:
+// 100 = volume original, cada passo reduz 5%. Nunca passa de 100%, então nunca estoura.
+internal const val PLAYER_VOLUME_MIN_PERCENT = 0
+internal const val PLAYER_VOLUME_MAX_PERCENT = 100
+internal const val PLAYER_VOLUME_STEP_PERCENT = 5
+internal const val PLAYER_VOLUME_DEFAULT_PERCENT = 100
 internal const val CENTER_MIX_LEVEL_MIN_DB = -10
 internal const val CENTER_MIX_LEVEL_MAX_DB = 30
 internal const val AUDIO_DELAY_MIN_MS = com.nuvio.tv.domain.model.AUDIO_DELAY_MIN_MS
@@ -220,11 +225,13 @@ internal fun PlayerRuntimeController.skipInterval(interval: SkipInterval): Boole
     return true
 }
 
-internal fun PlayerRuntimeController.applyAudioAmplification(db: Int) {
-    val clampedDb = db.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
+internal fun PlayerRuntimeController.applyAudioAmplification(volumePercent: Int) {
+    val clampedDb = volumePercent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
     val isAudioAmplificationAvailable = isUsingMpvEngine() || _exoPlayer != null
     val wasActive = gainAudioProcessor.isGainEnabled()
-    gainAudioProcessor.setGainDb(if (isAudioAmplificationAvailable) clampedDb else AUDIO_AMPLIFICATION_MIN_DB)
+    gainAudioProcessor.setVolumePercent(
+        if (isAudioAmplificationAvailable) clampedDb else PLAYER_VOLUME_DEFAULT_PERCENT
+    )
     val isActiveNow = gainAudioProcessor.isGainEnabled()
 
     if (wasActive != isActiveNow && !isUsingMpvEngine()) {
@@ -235,7 +242,7 @@ internal fun PlayerRuntimeController.applyAudioAmplification(db: Int) {
     }
 
     if (isUsingMpvEngine()) {
-        mpvView?.applyAudioAmplificationDb(clampedDb)
+        mpvView?.applyPlayerVolumePercent(clampedDb)
     }
     _uiState.update {
         it.copy(
@@ -262,9 +269,9 @@ internal fun PlayerRuntimeController.updateAudioControlAvailability(
     val isCenterMixAvailable =
         ffmpegAudioRenderer?.isCenterMixActive() == true && (selectedTrack?.channelCount ?: 0) > 2
     val clampedDb = _uiState.value.audioAmplificationDb
-        .coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
-    gainAudioProcessor.setGainDb(
-        if (isAudioAmplificationAvailable) clampedDb else AUDIO_AMPLIFICATION_MIN_DB
+        .coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+    gainAudioProcessor.setVolumePercent(
+        if (isAudioAmplificationAvailable) clampedDb else PLAYER_VOLUME_DEFAULT_PERCENT
     )
     _uiState.update { state ->
         state.copy(
@@ -665,7 +672,8 @@ private fun PlayerRuntimeController.buildPlaybackIssuePlaybackSettingsInput(): P
         tunnelingEffective = state.tunnelingEnabled,
         forceOpticalPassthrough = settings.forceOpticalPassthrough,
         skipSilence = settings.skipSilence,
-        audioAmplificationDb = settings.audioAmplificationDb,
+        // A amplificação PCM foi trocada por volume (só atenua): nunca há ganho em dB.
+        audioAmplificationDb = 0,
         centerMixLevelDb = settings.centerMixLevelDb,
         persistAudioAmplification = settings.persistAudioAmplification,
         rememberAudioDelayPerDevice = settings.rememberAudioDelayPerDevice,
@@ -1488,7 +1496,7 @@ fun PlayerRuntimeController.onEvent(event: PlayerEvent) {
             applyAudioDelay(event.delayMs)
         }
         is PlayerEvent.OnSetAudioAmplificationDb -> {
-            val clampedDb = event.db.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
+            val clampedDb = event.db.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
             applyAudioAmplification(clampedDb)
             if (_uiState.value.persistAudioAmplification) {
                 scope.launch {

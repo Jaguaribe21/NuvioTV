@@ -1913,11 +1913,11 @@
     <string name="audio_delay_label">Délai audio</string>
     <string name="audio_delay_range">Plage&#160;: %1$.2f s à %2$.2f s</string>
     <string name="audio_mix_label">Amplification (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Conserver d’une session à l’autre&#160;: activé</string>
     <string name="audio_mix_persist_off">Conserver d’une session à l’autre&#160;: désactivé</string>
-    <string name="audio_mix_range">Plage&#160;: %1$d dB à %2$d dB</string>
-    <string name="audio_mix_range_saved">Plage&#160;: %1$d dB à %2$d dB (enregistrée)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">L’amplification n’est pas disponible sur cet appareil</string>
     <string name="audio_center_mix_label">Downmix&#160;: niveau du canal central</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

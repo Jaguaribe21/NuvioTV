@@ -1463,11 +1463,11 @@
     <string name="audio_delay_label">Аудио забавяне</string>
     <string name="audio_delay_range">Диапазон: %1$.2fs до %2$.2fs</string>
     <string name="audio_mix_label">Усилване (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Запазване между сесиите: ВКЛ</string>
     <string name="audio_mix_persist_off">Запазване между сесиите: ИЗКЛ</string>
-    <string name="audio_mix_range">Диапазон: %1$d dB до %2$d dB</string>
-    <string name="audio_mix_range_saved">Диапазон: %1$d dB до %2$d dB (запазено)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Усилването не е налично на това устройство</string>
     <string name="audio_center_mix_label">Downmix: Ниво на Center Mix</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

@@ -312,7 +312,7 @@ internal fun PlayerRuntimeController.observeSubtitleSettings() {
                     if (settings.persistAudioAmplification) {
                         settings.audioAmplificationDb
                     } else {
-                        AUDIO_AMPLIFICATION_MIN_DB
+                        PLAYER_VOLUME_DEFAULT_PERCENT
                     }
                 }
                 settings.persistAudioAmplification -> settings.audioAmplificationDb

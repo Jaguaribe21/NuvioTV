@@ -1255,11 +1255,11 @@
     <string name="audio_delay_label">ஒலி தாமதம்</string>
     <string name="audio_delay_range">வரம்பு: %1$.2fs முதல் %2$.2fs வரை</string>
     <string name="audio_mix_label">ஒலி வலுப்படுத்தல் (பிசிஎம்)</string>
-    <string name="audio_mix_value_db">%1$d டிபி</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">அமர்வுகளுக்கு இடையில் நினைவில் வை: இயக்கு</string>
     <string name="audio_mix_persist_off">அமர்வுகளுக்கு இடையில் நினைவில் வை: நிறுத்து</string>
-    <string name="audio_mix_range">வரம்பு: %1$d டிபி முதல் %2$d டிபி வரை</string>
-    <string name="audio_mix_range_saved">வரம்பு: %1$d டிபி முதல் %2$d டிபி வரை (சேமிக்கப்பட்டது)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">இந்த சாதனத்தில் ஒலி வலுப்படுத்தல் கிடைக்காது</string>
 
     <!-- SubtitleDialog / SubtitleStyleSidePanel -->
