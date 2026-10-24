@@ -579,6 +579,7 @@ class PlayerRuntimeController(
     internal var hasAppliedRememberedAudioSelection: Boolean = false
     internal var hasInitializedAudioAmplificationForSession: Boolean = false
     internal var hasInitializedCenterMixForSession: Boolean = false
+    internal var hasInitializedPlayerVolumeForSession: Boolean = false
     internal var rememberAudioDelayPerDeviceEnabled: Boolean = false
     internal var currentAudioOutputRoute: AudioOutputRoute? = null
     internal var audioOutputRouteCallback: AudioDeviceCallback? = null

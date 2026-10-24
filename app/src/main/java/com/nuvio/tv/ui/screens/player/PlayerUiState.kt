@@ -107,6 +107,7 @@ data class PlayerUiState(
     val showChaptersPanel: Boolean = false,
     val audioDelayMs: Int = 0,
     val audioAmplificationDb: Int = 0,
+    val playerVolumePercent: Int = PLAYER_VOLUME_DEFAULT_PERCENT,
     val isAudioAmplificationAvailable: Boolean = false,
     val persistAudioAmplification: Boolean = false,
     val centerMixLevelDb: Int = 0,
@@ -320,6 +321,7 @@ sealed class PlayerEvent {
     data class OnSelectAudioTrack(val index: Int) : PlayerEvent()
     data class OnSetAudioDelayMs(val delayMs: Int) : PlayerEvent()
     data class OnSetAudioAmplificationDb(val db: Int) : PlayerEvent()
+    data class OnSetPlayerVolumePercent(val percent: Int) : PlayerEvent()
     data class OnSetPersistAudioAmplification(val enabled: Boolean) : PlayerEvent()
     data class OnSetCenterMixLevelDb(val db: Int) : PlayerEvent()
     data class OnSelectSubtitleTrack(val index: Int) : PlayerEvent()

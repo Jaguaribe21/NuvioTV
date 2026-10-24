@@ -330,6 +330,18 @@ internal fun PlayerRuntimeController.observeSubtitleSettings() {
                 settings.persistAudioAmplification -> settings.centerMixLevelDb
                 else -> currentState.centerMixLevelDb
             }
+            val resolvedPlayerVolumePercent = when {
+                !hasInitializedPlayerVolumeForSession -> {
+                    hasInitializedPlayerVolumeForSession = true
+                    if (settings.persistAudioAmplification) {
+                        settings.playerVolumePercent
+                    } else {
+                        PLAYER_VOLUME_DEFAULT_PERCENT
+                    }
+                }
+                settings.persistAudioAmplification -> settings.playerVolumePercent
+                else -> currentState.playerVolumePercent
+            }
 
             _uiState.update { state ->
                 val shouldShowOverlay = when {
@@ -357,12 +369,16 @@ internal fun PlayerRuntimeController.observeSubtitleSettings() {
                             resolvedInternalPlayerEngine != InternalPlayerEngine.MVP_PLAYER,
                     persistAudioAmplification = settings.persistAudioAmplification,
                     audioAmplificationDb = resolvedAudioAmplificationDb,
+                    playerVolumePercent = resolvedPlayerVolumePercent,
                     centerMixLevelDb = resolvedCenterMixLevelDb
                 )
             }
 
             if (resolvedAudioAmplificationDb != currentState.audioAmplificationDb) {
                 applyAudioAmplification(resolvedAudioAmplificationDb)
+            }
+            if (resolvedPlayerVolumePercent != currentState.playerVolumePercent) {
+                applyPlayerVolume(resolvedPlayerVolumePercent)
             }
             if (resolvedCenterMixLevelDb != currentState.centerMixLevelDb) {
                 applyCenterMixLevel(resolvedCenterMixLevelDb)
