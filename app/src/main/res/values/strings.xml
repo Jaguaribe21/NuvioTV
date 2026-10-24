@@ -1727,6 +1727,12 @@
     <string name="addons_badge_disabled">Disabled</string>
     <string name="addon_manage_from_phone_title">Manage from phone</string>
     <string name="addon_manage_from_phone_subtitle">Scan a QR code to manage addons, catalogs, and collections from your phone</string>
+    <string name="addon_import_official_title">Import from official Nuvio</string>
+    <string name="addon_import_official_subtitle">Copies addons, catalogs and collections from the official app</string>
+    <string name="addon_import_official_running">Importing…</string>
+    <string name="addon_import_official_success">Imported %1$d addons and %2$d collections</string>
+    <string name="addon_import_official_not_found">Official Nuvio not found. Open it on Addons → Manage from phone, press Home and try again.</string>
+    <string name="addon_import_official_empty">The official Nuvio has no addons to import.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Scan a QR code to install or remove add-ons from your phone</string>
     <string name="addon_manage_collections_from_phone_subtitle">Scan a QR code to manage collections from your phone</string>
     <string name="addon_reorder_title">Reorder home catalogs</string>

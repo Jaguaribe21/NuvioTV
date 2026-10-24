@@ -1702,6 +1702,12 @@
     <string name="addons_badge_disabled">Desativar</string>
     <string name="addon_manage_from_phone_title">Gerenciar pelo celular</string>
     <string name="addon_manage_from_phone_subtitle">Escaneie um QR para gerenciar addons, catálogos e coleções pelo celular</string>
+    <string name="addon_import_official_title">Importar do Nuvio oficial</string>
+    <string name="addon_import_official_subtitle">Copia addons, catálogos e coleções do app oficial</string>
+    <string name="addon_import_official_running">Importando…</string>
+    <string name="addon_import_official_success">Importados %1$d addons e %2$d coleções</string>
+    <string name="addon_import_official_not_found">Nuvio oficial não encontrado. Abra-o em Addons → Gerenciar pelo celular, aperte Home e tente de novo.</string>
+    <string name="addon_import_official_empty">O Nuvio oficial não tem addons para importar.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Leia o código QR para gerenciar addons pelo celular</string>
     <string name="addon_manage_collections_from_phone_subtitle">Escaneie um QR para gerenciar coleções pelo celular</string>
     <string name="addon_reorder_title">Reordenar Tela inicial</string>

@@ -1273,6 +1273,12 @@
     <string name="addons_badge_disabled">Desativado</string>
     <string name="addon_manage_from_phone_title">Gerir a partir do telemóvel</string>
     <string name="addon_manage_from_phone_subtitle">Lê um código QR para gerir addons, catálogos e coleções a partir do teu telemóvel</string>
+    <string name="addon_import_official_title">Importar do Nuvio oficial</string>
+    <string name="addon_import_official_subtitle">Copia addons, catálogos e coleções da app oficial</string>
+    <string name="addon_import_official_running">A importar…</string>
+    <string name="addon_import_official_success">Importados %1$d addons e %2$d coleções</string>
+    <string name="addon_import_official_not_found">Nuvio oficial não encontrado. Abra-o em Addons → Gerir pelo telemóvel, carregue em Home e tente de novo.</string>
+    <string name="addon_import_official_empty">O Nuvio oficial não tem addons para importar.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Lê um código QR para instalar ou remover addons a partir do teu telemóvel</string>
     <string name="addon_manage_collections_from_phone_subtitle">Lê um código QR para gerir coleções a partir do teu telemóvel</string>
     <string name="addon_reorder_title">Reordenar catálogos iniciais</string>
