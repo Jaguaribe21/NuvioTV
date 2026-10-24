@@ -1563,11 +1563,11 @@
     <string name="audio_delay_label">Zpoždění zvuku</string>
     <string name="audio_delay_range">Rozsah: %1$.2fs až %2$.2fs</string>
     <string name="audio_mix_label">Zesílení (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Zachovat mezi relacemi: ZAPNUTO</string>
     <string name="audio_mix_persist_off">Zachovat mezi relacemi: VYPNUTO</string>
-    <string name="audio_mix_range">Rozsah: %1$d dB až %2$d dB</string>
-    <string name="audio_mix_range_saved">Rozsah: %1$d dB až %2$d dB (uloženo)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Zesílení není na tomto zařízení dostupné</string>
     <string name="audio_center_mix_label">Downmix: úroveň centrálního kanálu</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

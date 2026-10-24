@@ -1475,11 +1475,11 @@
     <string name="audio_delay_label">تأخير الصوت</string>
     <string name="audio_delay_range">المدى: %1$.2fs to %2$.2fs</string>
     <string name="audio_mix_label">تضخيم (PCM)</string>
-    <string name="audio_mix_value_db">%1$d ديسيبل</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">الحفظ بين الجلسات: مفعل</string>
     <string name="audio_mix_persist_off">الحفظ بين الجلسات: معطل</string>
-    <string name="audio_mix_range">النطاق: %1$d ديسيبل إلى %2$d ديسيبل</string>
-    <string name="audio_mix_range_saved">النطاق: %1$d ديسيبل إلى %2$d ديسيبل (محفوظ)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">التضخيم غير متاح على هذا الجهاز</string>
     <string name="audio_center_mix_label">دمج القنوات (Downmix): مستوى خلط الصوت المركزي</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

@@ -1407,11 +1407,11 @@
     <string name="audio_delay_label">Penundaan Audio</string>
     <string name="audio_delay_range">Rentang: %1$.2f dtk hingga %2$.2f dtk</string>
     <string name="audio_mix_label">Amplifikasi (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Pertahankan antar sesi: AKTIF</string>
     <string name="audio_mix_persist_off">Pertahankan antar sesi: NONAKTIF</string>
-    <string name="audio_mix_range">Rentang: %1$d dB hingga %2$d dB</string>
-    <string name="audio_mix_range_saved">Rentang: %1$d dB hingga %2$d dB (disimpan)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Amplifikasi tidak tersedia di perangkat ini</string>
     <string name="audio_center_mix_label">Downmix: Tingkat Center Mix</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

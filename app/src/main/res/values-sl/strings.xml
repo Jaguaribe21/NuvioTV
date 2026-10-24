@@ -1213,11 +1213,11 @@
 	<string name="audio_delay_label">Zamik zvoka</string>
     <string name="audio_delay_range">Razpon: od %1$.2fs do %2$.2fs</string>								   
     <string name="audio_mix_label">Ojačitev (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Ohrani med sejami: VKLOPLJENO</string>
     <string name="audio_mix_persist_off">Ohrani med sejami: IZKLOPLJENO</string>
-    <string name="audio_mix_range">Razpon: od %1$d dB do %2$d dB</string>
-    <string name="audio_mix_range_saved">Razpon: od %1$d dB do %2$d dB (shranjeno)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Ojačitev na tej napravi ni na voljo</string>													 
 	<!-- SubtitleDialog / SubtitleStyleSidePanel -->
     <string name="subtitle_dialog_title">Podnapisi</string>

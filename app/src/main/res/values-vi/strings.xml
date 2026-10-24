@@ -1933,11 +1933,11 @@
     <string name="audio_delay_label">Độ trễ âm thanh</string>
     <string name="audio_delay_range">Khoảng: %1$.2fs đến %2$.2fs</string>
     <string name="audio_mix_label">Khuếch đại (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Lưu giữa các phiên: BẬT</string>
     <string name="audio_mix_persist_off">Lưu giữa các phiên: TẮT</string>
-    <string name="audio_mix_range">Khoảng: %1$d dB đến %2$d dB</string>
-    <string name="audio_mix_range_saved">Khoảng: %1$d dB đến %2$d dB (đã lưu)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Khuếch đại không có sẵn trên thiết bị này</string>
     <string name="audio_center_mix_label">Hạ kênh: Mức trộn kênh trung tâm</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

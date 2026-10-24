@@ -90,7 +90,7 @@ private val localOnlyPlayerProfileSettingsKeys = setOf(
     "downmix_normalization_enabled",
     "tunneling_enabled",
     "force_optical_passthrough",
-    "audio_amplification_db",
+    "player_volume_percent",
     "center_mix_level_db",
     "persist_audio_amplification",
     "remember_audio_delay_per_device",

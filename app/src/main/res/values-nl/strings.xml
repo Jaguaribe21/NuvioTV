@@ -1732,11 +1732,11 @@
     <string name="audio_delay_label">Audiovertraging</string>
     <string name="audio_delay_range">Bereik: %1$.2fs tot %2$.2fs</string>
     <string name="audio_mix_label">Versterking (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Behouden tussen sessies: AAN</string>
     <string name="audio_mix_persist_off">Behouden tussen sessies: UIT</string>
-    <string name="audio_mix_range">Bereik: %1$d dB tot %2$d dB</string>
-    <string name="audio_mix_range_saved">Bereik: %1$d dB tot %2$d dB (opgeslagen)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Versterking is niet beschikbaar op dit apparaat</string>
     <string name="audio_center_mix_label">Downmix: mixniveau van het middenkanaal</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

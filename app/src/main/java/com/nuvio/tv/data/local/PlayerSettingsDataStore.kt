@@ -272,7 +272,8 @@ data class PlayerSettings(
     val tunnelingEnabled: Boolean = false,
     val forceOpticalPassthrough: Boolean = false,
     val skipSilence: Boolean = false,
-    val audioAmplificationDb: Int = 0,
+    /** Volume do player em % (0..100, passos de 5). Substitui a amplificação PCM. */
+    val audioAmplificationDb: Int = 100,
     val centerMixLevelDb: Int = 0,
     val persistAudioAmplification: Boolean = false,
     val rememberAudioDelayPerDevice: Boolean = true,
@@ -533,8 +534,10 @@ class PlayerSettingsDataStore @Inject constructor(
 ) {
     companion object {
         private const val FEATURE = "player_settings"
+        // Volume do player em % (substitui a amplificação PCM 0..10 dB)
         private const val AUDIO_AMPLIFICATION_DB_MIN = 0
-        private const val AUDIO_AMPLIFICATION_DB_MAX = 10
+        private const val AUDIO_AMPLIFICATION_DB_MAX = 100
+        private const val PLAYER_VOLUME_DEFAULT = 100
         private const val CENTER_MIX_LEVEL_DB_MIN = -10
         private const val CENTER_MIX_LEVEL_DB_MAX = 30
     }
@@ -561,7 +564,7 @@ class PlayerSettingsDataStore @Inject constructor(
     private val tunnelingEnabledKey = booleanPreferencesKey("tunneling_enabled")
     private val forceOpticalPassthroughKey = booleanPreferencesKey("force_optical_passthrough")
     private val skipSilenceKey = booleanPreferencesKey("skip_silence")
-    private val audioAmplificationDbKey = intPreferencesKey("audio_amplification_db")
+    private val audioAmplificationDbKey = intPreferencesKey("player_volume_percent")
     private val centerMixLevelDbKey = intPreferencesKey("center_mix_level_db")
     private val persistAudioAmplificationKey = booleanPreferencesKey("persist_audio_amplification")
     private val rememberAudioDelayPerDeviceKey = booleanPreferencesKey("remember_audio_delay_per_device")
@@ -943,7 +946,7 @@ class PlayerSettingsDataStore @Inject constructor(
                 tunnelingEnabled = prefs[tunnelingEnabledKey] ?: false,
                 forceOpticalPassthrough = prefs[forceOpticalPassthroughKey] ?: false,
                 skipSilence = prefs[skipSilenceKey] ?: false,
-                audioAmplificationDb = (prefs[audioAmplificationDbKey] ?: 0).coerceIn(
+                audioAmplificationDb = (prefs[audioAmplificationDbKey] ?: PLAYER_VOLUME_DEFAULT).coerceIn(
                     AUDIO_AMPLIFICATION_DB_MIN,
                     AUDIO_AMPLIFICATION_DB_MAX
                 ),

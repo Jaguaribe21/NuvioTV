@@ -731,11 +731,11 @@
     <string name="audio_dialog_tab_tracks">Ljud</string>
     <string name="audio_dialog_tab_mix">Mix</string>
     <string name="audio_mix_label">Förstärkning (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Spara mellan sessioner: PÅ</string>
     <string name="audio_mix_persist_off">Spara mellan sessioner: AV</string>
-    <string name="audio_mix_range">Intervall: %1$d dB till %2$d dB</string>
-    <string name="audio_mix_range_saved">Intervall: %1$d dB till %2$d dB (sparat)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Förstärkning är inte tillgänglig på denna enhet</string>
 
     <!-- SubtitleDialog / SubtitleStyleSidePanel -->

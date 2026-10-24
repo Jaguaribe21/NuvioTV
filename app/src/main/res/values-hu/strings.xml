@@ -1923,11 +1923,11 @@
     <string name="audio_delay_label">Hang késleltetése</string>
     <string name="audio_delay_range">Tartomány: %1$.2f mp - %2$.2f mp</string>
     <string name="audio_mix_label">Erősítés (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Mentés munkamenetek között: BE</string>
     <string name="audio_mix_persist_off">Mentés munkamenetek között: KI</string>
-    <string name="audio_mix_range">Tartomány: %1$d dB - %2$d dB</string>
-    <string name="audio_mix_range_saved">Tartomány: %1$d dB - %2$d dB (mentve)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Az erősítés nem érhető el ezen az eszközön</string>
     <string name="audio_center_mix_label">Lekeverés: középső csatorna szintje</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

@@ -1596,11 +1596,11 @@
     <string name="audio_delay_label">Vonesa e audios</string>
     <string name="audio_delay_range">Diapazoni: %1$.2fs deri %2$.2fs</string>
     <string name="audio_mix_label">Përforcimi (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Ruaj midis sesioneve: AKTIV</string>
     <string name="audio_mix_persist_off">Ruaj midis sesioneve: JOAKTIV</string>
-    <string name="audio_mix_range">Diapazoni: %1$d dB deri %2$d dB</string>
-    <string name="audio_mix_range_saved">Diapazoni: %1$d dB deri %2$d dB (ruajtur)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Përforcimi nuk është i disponueshëm në këtë pajisje</string>
     <string name="audio_center_mix_label">Downmix: Niveli i përzierjes së kanalit qendror</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>

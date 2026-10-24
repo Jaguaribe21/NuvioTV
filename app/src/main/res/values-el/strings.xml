@@ -1749,11 +1749,11 @@
   <string name="audio_delay_label">Καθυστέρηση ήχου</string>
   <string name="audio_delay_range">Εύρος: %1$.2fs έως %2$.2fs</string>
   <string name="audio_mix_label">Ενίσχυση (PCM)</string>
-  <string name="audio_mix_value_db">%1$d dB</string>
+  <string name="audio_mix_value_db">%1$d%%</string>
   <string name="audio_mix_persist_on">Διατήρηση μεταξύ συνεδριών: ΕΝΕΡΓΟ</string>
   <string name="audio_mix_persist_off">Διατήρηση μεταξύ συνεδριών: ΑΠΕΝΕΡΓΟ</string>
-  <string name="audio_mix_range">Εύρος: %1$d dB έως %2$d dB</string>
-  <string name="audio_mix_range_saved">Εύρος: %1$d dB έως %2$d dB (αποθηκευμένο)</string>
+  <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+  <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
   <string name="audio_mix_unavailable">Η ενίσχυση δεν είναι διαθέσιμη σε αυτή τη συσκευή</string>
   <string name="audio_center_mix_label">Downmix: επίπεδο Center Mix</string>
   <string name="audio_center_mix_value_db">%1$d dB</string>

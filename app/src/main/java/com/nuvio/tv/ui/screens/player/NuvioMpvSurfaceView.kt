@@ -10,7 +10,6 @@ import `is`.xyz.mpv.BaseMPVView
 import `is`.xyz.mpv.MPV
 import `is`.xyz.mpv.Utils
 import java.util.Locale
-import kotlin.math.pow
 import kotlin.math.roundToLong
 
 internal const val MPV_TRACK_LIST_PROPERTY = "track-list"
@@ -270,15 +269,21 @@ class NuvioMpvSurfaceView @JvmOverloads constructor(
         mpv.setPropertyDouble("speed", speed.toDouble())
     }
 
-    fun applyAudioAmplificationDb(db: Int) {
+    /**
+     * Volume do player em porcentagem (0..100, passos de 5%), só atenuação.
+     * O "volume" do mpv usa curva cúbica (ganho = (volume/100)^3); por isso
+     * convertemos com raiz cúbica para que 95% aqui = 95% de amplitude real,
+     * igual ao motor ExoPlayer.
+     */
+    fun applyPlayerVolumePercent(percent: Int) {
         if (!initialized) return
-        val clampedDb = db.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
-        val linearScale = 10.0.pow(clampedDb / 20.0)
-        val targetVolumePercent = (100.0 * linearScale).coerceIn(0.0, MPV_MAX_VOLUME_PERCENT)
+        val clampedPercent = percent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+        val linearScale = clampedPercent / 100.0
+        val targetVolumePercent = (100.0 * Math.cbrt(linearScale)).coerceIn(0.0, 100.0)
         runCatching {
             mpv.setPropertyDouble("volume", targetVolumePercent)
         }.onFailure {
-            Log.w(TAG, "Failed to apply audio amplification on mpv (db=$clampedDb): ${it.message}")
+            Log.w(TAG, "Failed to apply player volume on mpv (percent=$clampedPercent): ${it.message}")
         }
     }
 

@@ -1197,8 +1197,8 @@
     <string name="audio_mix_label">Wzmocnienie (PCM)</string>
     <string name="audio_mix_persist_on">Zachowaj między sesjami: WŁ</string>
     <string name="audio_mix_persist_off">Zachowaj między sesjami: WYŁ</string>
-    <string name="audio_mix_range">Zakres: %1$d dB do %2$d dB</string>
-    <string name="audio_mix_range_saved">Zakres: %1$d dB do %2$d dB (zapisano)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Wzmocnienie nie jest dostępne na tym urządzeniu</string>
 
     <string name="auth_notice_nuvio_logged_out">Zostałeś wylogowany z Nuvio. Zaloguj się ponownie.</string>
@@ -1315,7 +1315,7 @@
 
     <string name="audio_dialog_tab_tracks">Audio</string>
     <string name="audio_dialog_tab_mix">Miks</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
 
     <string name="subtitle_style_customize">Dostosuj</string>
 

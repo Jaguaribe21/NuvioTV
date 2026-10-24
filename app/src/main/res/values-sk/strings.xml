@@ -1413,11 +1413,11 @@
     <string name="audio_delay_label">Oneskorenie audia</string>
     <string name="audio_delay_range">Rozsah: %1$.2fs až %2$.2fs</string>
     <string name="audio_mix_label">Zosilnenie (PCM)</string>
-    <string name="audio_mix_value_db">%1$d dB</string>
+    <string name="audio_mix_value_db">%1$d%%</string>
     <string name="audio_mix_persist_on">Zachovať medzi reláciami: ZAP</string>
     <string name="audio_mix_persist_off">Zachovať medzi reláciami: VYP</string>
-    <string name="audio_mix_range">Rozsah: %1$d dB až %2$d dB</string>
-    <string name="audio_mix_range_saved">Rozsah: %1$d dB až %2$d dB (uložené)</string>
+    <string name="audio_mix_range">%1$d%% – %2$d%%</string>
+    <string name="audio_mix_range_saved">%1$d%% – %2$d%% ✓</string>
     <string name="audio_mix_unavailable">Zosilnenie nie je na tomto zariadení dostupné</string>
     <string name="audio_center_mix_label">Downmix: Úroveň stredového kanála</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>
