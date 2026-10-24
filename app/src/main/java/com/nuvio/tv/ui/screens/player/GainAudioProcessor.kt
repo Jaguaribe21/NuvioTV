@@ -13,17 +13,30 @@ internal class GainAudioProcessor : BaseAudioProcessor() {
     @Volatile
     private var gainDb: Int = AUDIO_AMPLIFICATION_MIN_DB
 
+    /** Player volume in percent (attenuation only, 100 = unchanged). */
+    @Volatile
+    private var volumePercent: Int = PLAYER_VOLUME_DEFAULT_PERCENT
+
     @Volatile
     private var gainScale: Float = 1f
 
     fun setGainDb(db: Int) {
         val clampedDb = db.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
         gainDb = clampedDb
-        gainScale = gainToLinearScale(clampedDb)
+        updateGainScale()
+    }
+
+    fun setVolumePercent(percent: Int) {
+        volumePercent = percent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+        updateGainScale()
     }
 
     fun isGainEnabled(): Boolean {
-        return gainDb != AUDIO_AMPLIFICATION_MIN_DB
+        return gainDb != AUDIO_AMPLIFICATION_MIN_DB || volumePercent != PLAYER_VOLUME_DEFAULT_PERCENT
+    }
+
+    private fun updateGainScale() {
+        gainScale = gainToLinearScale(gainDb) * (volumePercent / 100f)
     }
 
     override fun isActive(): Boolean {

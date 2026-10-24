@@ -1057,6 +1057,7 @@ internal fun PlayerRuntimeController.initializePlayer(
                 }
 
                 applyAudioAmplification(_uiState.value.audioAmplificationDb)
+                applyPlayerVolume(_uiState.value.playerVolumePercent)
                 applyCenterMixLevel(_uiState.value.centerMixLevelDb)
 
                 notifyAudioSessionUpdate(true)

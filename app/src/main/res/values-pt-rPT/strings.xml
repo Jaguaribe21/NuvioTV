@@ -1435,6 +1435,11 @@
     <string name="audio_mix_range">Intervalo: %1$d dB a %2$d dB</string>
     <string name="audio_mix_range_saved">Intervalo: %1$d dB a %2$d dB (guardado)</string>
     <string name="audio_mix_unavailable">A amplificação não está disponível neste dispositivo</string>
+    <string name="audio_volume_label">Volume</string>
+    <string name="audio_volume_value_percent">%1$d%%</string>
+    <string name="audio_volume_range">Reduz o som em passos de %1$d%% (não distorce)</string>
+    <string name="audio_volume_range_saved">Reduz o som em passos de %1$d%% (guardado)</string>
+    <string name="audio_volume_unavailable">Controlo de volume não disponível neste dispositivo</string>
     <string name="audio_center_mix_label">Downmix: Nível do Canal Central</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>
     <string name="audio_center_mix_help">Nível do Canal Central em dB relativo aos metadados ou predefinição (-3 dB)</string>
