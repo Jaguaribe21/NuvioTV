@@ -15,8 +15,8 @@ import kotlin.math.roundToInt
  * video to the libgav1 software decoder, causing stutter on low-power devices like Fire TV).
  *
  * Channel orders follow Android/Media3 (WAVE) layouts. LFE is dropped. The center level can be
- * changed live. Normalization is computed with the center at its default level, so raising the
- * center boosts dialogue without lowering music/effects (samples are clamped).
+ * changed live; like the FFmpeg downmix, normalization includes the center level, so raising it
+ * brings dialogue up and music/effects down.
  */
 internal class StereoDownmixAudioProcessor : BaseAudioProcessor() {
 
@@ -108,7 +108,6 @@ internal class StereoDownmixAudioProcessor : BaseAudioProcessor() {
             right[rightIndex] = gain
         }
 
-        // Defaults (center at its standard level) used only for normalization.
         front()
         when (channels) {
             3 -> centerAt(2, center)                                  // FL FR FC
@@ -126,10 +125,10 @@ internal class StereoDownmixAudioProcessor : BaseAudioProcessor() {
                 pairAt(6, 7, surround)
             }
         }
-        val scale = if (normalize) 1f / maxOf(left.sum(), right.sum()) else 1f
-
-        // Apply the user's center level after computing normalization.
+        // Apply the user's center level before normalizing (same behavior as the FFmpeg downmix):
+        // raising the center raises dialogue and lowers music/effects proportionally.
         if (channels != 4) centerAt(2, center * centerGain)
+        val scale = if (normalize) 1f / maxOf(left.sum(), right.sum()) else 1f
         for (i in 0 until channels) {
             left[i] *= scale
             right[i] *= scale
