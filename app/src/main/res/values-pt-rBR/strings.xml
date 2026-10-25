@@ -827,7 +827,7 @@
     <string name="audio_decoder_prefer_app">Preferir decodificadores do app</string>
     <string name="audio_decoder_priority">Prioridade do decodificador</string>
     <string name="audio_enable_downmix_title">Ativar mixagem de áudio (downmix)</string>
-    <string name="audio_enable_downmix_subtitle">Usa o caminho de downmix do FFmpeg. Requer a opção “Preferir decodificadores do app (FFmpeg)”. Quando desativado, o áudio segue o caminho anterior do Android/dispositivo.</string>
+    <string name="audio_enable_downmix_subtitle">Converte som surround em estéreo (escolha 2.0 abaixo). Funciona com qualquer decodificador; com “Preferir decodificadores nativos” usa bem menos processador.</string>
     <string name="audio_tunneled">Reprodução em túnel</string>
     <string name="audio_tunneled_sub">Melhora a sincronização de áudio e vídeo usando o hardware.</string>
     <string name="audio_force_optical_passthrough">Forçar transcodificação AC-3 (Óptico/SPDIF)</string>
@@ -1702,6 +1702,12 @@
     <string name="addons_badge_disabled">Desativar</string>
     <string name="addon_manage_from_phone_title">Gerenciar pelo celular</string>
     <string name="addon_manage_from_phone_subtitle">Escaneie um QR para gerenciar addons, catálogos e coleções pelo celular</string>
+    <string name="addon_import_official_title">Importar do Nuvio oficial</string>
+    <string name="addon_import_official_subtitle">Copia addons, catálogos e coleções do app oficial</string>
+    <string name="addon_import_official_running">Importando…</string>
+    <string name="addon_import_official_success">Importados %1$d addons e %2$d coleções</string>
+    <string name="addon_import_official_not_found">Nuvio oficial não encontrado. Abra-o em Addons → Gerenciar pelo celular, aperte Home e tente de novo.</string>
+    <string name="addon_import_official_empty">O Nuvio oficial não tem addons para importar.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Leia o código QR para gerenciar addons pelo celular</string>
     <string name="addon_manage_collections_from_phone_subtitle">Escaneie um QR para gerenciar coleções pelo celular</string>
     <string name="addon_reorder_title">Reordenar Tela inicial</string>
@@ -1912,6 +1918,11 @@
     <string name="audio_mix_range">Faixa: %1$d dB a %2$d dB</string>
     <string name="audio_mix_range_saved">Faixa: %1$d dB a %2$d dB (salvo)</string>
     <string name="audio_mix_unavailable">Amplificação não disponível neste dispositivo</string>
+    <string name="audio_volume_label">Volume</string>
+    <string name="audio_volume_value_percent">%1$d%%</string>
+    <string name="audio_volume_range">Reduz o som em passos de %1$d%% (não estoura)</string>
+    <string name="audio_volume_range_saved">Reduz o som em passos de %1$d%% (salvo)</string>
+    <string name="audio_volume_unavailable">Controle de volume não disponível neste dispositivo</string>
     <string name="audio_center_mix_label">Mixagem: Nível do Canal Central</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>
     <string name="audio_center_mix_help">Nível do canal central em dB em relação aos metadados ou padrão (-3 dB).</string>

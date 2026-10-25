@@ -49,6 +49,10 @@ import com.nuvio.tv.domain.repository.AddonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import java.net.HttpURLConnection
+import java.net.URL
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -374,6 +378,134 @@ class AddonManagerViewModel @Inject constructor(
                 error = null
             )
         }
+    }
+
+    /**
+     * Imports addons, home catalog order/visibility and collections from the official
+     * Nuvio app running on the same device. The official app must have its
+     * "Manage from phone" screen open (its local server on port 8080+), then the user
+     * presses Home and opens this app. Only public local data is read; no account data.
+     */
+    fun importFromOfficialApp() {
+        if (_uiState.value.isImportingFromOfficial) return
+        stopQrMode()
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(isImportingFromOfficial = true, error = null, transientMessage = null)
+            }
+            val state = withContext(Dispatchers.IO) { findOfficialPageState() }
+            if (state == null) {
+                _uiState.update {
+                    it.copy(
+                        isImportingFromOfficial = false,
+                        transientMessage = context.getString(R.string.addon_import_official_not_found),
+                        transientMessageIsError = true
+                    )
+                }
+                return@launch
+            }
+
+            val urls = state.getAsJsonArray("addons")
+                ?.mapNotNull { element ->
+                    element.takeIf { it.isJsonObject }?.asJsonObject?.get("url")
+                        ?.takeIf { !it.isJsonNull }?.asString?.trim()
+                }
+                ?.filter { it.isNotBlank() }
+                ?.distinct()
+                .orEmpty()
+            if (urls.isEmpty()) {
+                _uiState.update {
+                    it.copy(
+                        isImportingFromOfficial = false,
+                        transientMessage = context.getString(R.string.addon_import_official_empty),
+                        transientMessageIsError = true
+                    )
+                }
+                return@launch
+            }
+
+            runCatching {
+                for (url in urls) {
+                    withTimeoutOrNull(20_000L) {
+                        runCatching { addonRepository.fetchAddon(url) }
+                    }
+                    addonRepository.addAddon(url)
+                }
+                addonRepository.setAddonOrder(urls)
+
+                val catalogs = state.getAsJsonArray("catalogs")
+                    ?.mapNotNull { it.takeIf { e -> e.isJsonObject }?.asJsonObject }
+                    .orEmpty()
+                val orderKeys = catalogs.mapNotNull { it.stringOrNull("key") }
+                val disabledCatalogKeys = catalogs
+                    .filter { it.get("isDisabled")?.takeIf { e -> !e.isJsonNull }?.asBoolean == true }
+                    .mapNotNull { it.stringOrNull("disableKey") }
+                val disabledCollectionKeys = state.getAsJsonArray("disabledCollectionKeys")
+                    ?.mapNotNull { it.takeIf { e -> !e.isJsonNull }?.asString }
+                    .orEmpty()
+                if (orderKeys.isNotEmpty()) {
+                    layoutPreferenceDataStore.setHomeCatalogOrderKeys(orderKeys)
+                }
+                layoutPreferenceDataStore.setDisabledHomeCatalogKeys(
+                    (disabledCatalogKeys + disabledCollectionKeys).distinct()
+                )
+                state.get("followAddonsOrder")
+                    ?.takeIf { !it.isJsonNull }
+                    ?.asBoolean
+                    ?.let { layoutPreferenceDataStore.setFollowAddonsOrder(it) }
+            }
+
+            var importedCollections = 0
+            runCatching {
+                val collectionsElement = state.get("collections")
+                if (collectionsElement != null && collectionsElement.isJsonArray &&
+                    collectionsElement.asJsonArray.size() > 0
+                ) {
+                    val parsed = parseCollectionsFromJson(collectionsElement.toString())
+                    if (parsed.isNotEmpty()) {
+                        collectionsDataStore.setCollections(parsed)
+                        importedCollections = parsed.size
+                    }
+                }
+            }
+
+            _uiState.update {
+                it.copy(
+                    isImportingFromOfficial = false,
+                    transientMessage = context.getString(
+                        R.string.addon_import_official_success,
+                        urls.size,
+                        importedCollections
+                    ),
+                    transientMessageIsError = false
+                )
+            }
+        }
+    }
+
+    private fun JsonObject.stringOrNull(name: String): String? =
+        get(name)?.takeIf { !it.isJsonNull }?.asString?.takeIf { it.isNotBlank() }
+
+    private fun findOfficialPageState(): JsonObject? {
+        for (port in OFFICIAL_SERVER_PORTS) {
+            val state = runCatching {
+                val connection = URL("http://127.0.0.1:$port/api/state").openConnection() as HttpURLConnection
+                try {
+                    connection.connectTimeout = 700
+                    connection.readTimeout = 4_000
+                    connection.requestMethod = "GET"
+                    if (connection.responseCode != 200) return@runCatching null
+                    val body = connection.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                    val json = JsonParser.parseString(body)
+                    json.takeIf { it.isJsonObject }?.asJsonObject
+                        ?.takeIf { it.has("addons") && it.has("catalogs") }
+                } finally {
+                    connection.disconnect()
+                }
+            }.getOrNull()
+            if (state != null) return state
+        }
+        return null
     }
 
     fun stopQrMode() {
@@ -809,6 +941,10 @@ class AddonManagerViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    private companion object {
+        val OFFICIAL_SERVER_PORTS = 8080..8099
     }
 
     override fun onCleared() {

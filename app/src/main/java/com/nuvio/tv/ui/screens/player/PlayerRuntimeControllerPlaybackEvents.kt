@@ -29,6 +29,11 @@ import kotlinx.coroutines.launch
 
 internal const val AUDIO_AMPLIFICATION_MIN_DB = 0
 internal const val AUDIO_AMPLIFICATION_MAX_DB = 10
+/** Player volume (attenuation only): 100% = unchanged, never above 100% so it cannot clip. */
+internal const val PLAYER_VOLUME_MIN_PERCENT = 0
+internal const val PLAYER_VOLUME_MAX_PERCENT = 100
+internal const val PLAYER_VOLUME_STEP_PERCENT = 5
+internal const val PLAYER_VOLUME_DEFAULT_PERCENT = 100
 internal const val CENTER_MIX_LEVEL_MIN_DB = -10
 internal const val CENTER_MIX_LEVEL_MAX_DB = 30
 internal const val AUDIO_DELAY_MIN_MS = com.nuvio.tv.domain.model.AUDIO_DELAY_MIN_MS
@@ -235,7 +240,7 @@ internal fun PlayerRuntimeController.applyAudioAmplification(db: Int) {
     }
 
     if (isUsingMpvEngine()) {
-        mpvView?.applyAudioAmplificationDb(clampedDb)
+        mpvView?.applyAudioAmplificationDb(clampedDb, _uiState.value.playerVolumePercent)
     }
     _uiState.update {
         it.copy(
@@ -245,9 +250,37 @@ internal fun PlayerRuntimeController.applyAudioAmplification(db: Int) {
     }
 }
 
+internal fun PlayerRuntimeController.applyPlayerVolume(percent: Int) {
+    val clampedPercent = percent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+    val isAudioAmplificationAvailable = isUsingMpvEngine() || _exoPlayer != null
+    val wasActive = gainAudioProcessor.isGainEnabled()
+    gainAudioProcessor.setVolumePercent(
+        if (isAudioAmplificationAvailable) clampedPercent else PLAYER_VOLUME_DEFAULT_PERCENT
+    )
+    val isActiveNow = gainAudioProcessor.isGainEnabled()
+
+    if (wasActive != isActiveNow && !isUsingMpvEngine()) {
+        playbackSpeedAwareAudioSink?.notifyAudioProcessingRequirementChanged()
+        _exoPlayer?.let { player ->
+            player.trackSelectionParameters = player.trackSelectionParameters.buildUpon().build()
+        }
+    }
+
+    if (isUsingMpvEngine()) {
+        mpvView?.applyAudioAmplificationDb(_uiState.value.audioAmplificationDb, clampedPercent)
+    }
+    _uiState.update {
+        it.copy(
+            playerVolumePercent = clampedPercent,
+            isAudioAmplificationAvailable = isAudioAmplificationAvailable
+        )
+    }
+}
+
 internal fun PlayerRuntimeController.applyCenterMixLevel(db: Int) {
     val clampedDb = db.coerceIn(CENTER_MIX_LEVEL_MIN_DB, CENTER_MIX_LEVEL_MAX_DB)
     ffmpegAudioRenderer?.setCenterMixLevelDb(clampedDb)
+    stereoDownmixAudioProcessor.setCenterMixLevelDb(clampedDb)
     _uiState.update { state ->
         state.copy(centerMixLevelDb = clampedDb)
     }
@@ -260,11 +293,19 @@ internal fun PlayerRuntimeController.updateAudioControlAvailability(
     val selectedTrack = audioTracks.getOrNull(selectedAudioIndex)
     val isAudioAmplificationAvailable = isUsingMpvEngine() || _exoPlayer != null
     val isCenterMixAvailable =
-        ffmpegAudioRenderer?.isCenterMixActive() == true && (selectedTrack?.channelCount ?: 0) > 2
+        (ffmpegAudioRenderer?.isCenterMixActive() == true || stereoDownmixAudioProcessor.isEnabled()) &&
+            (selectedTrack?.channelCount ?: 0) > 2
     val clampedDb = _uiState.value.audioAmplificationDb
         .coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
     gainAudioProcessor.setGainDb(
         if (isAudioAmplificationAvailable) clampedDb else AUDIO_AMPLIFICATION_MIN_DB
+    )
+    gainAudioProcessor.setVolumePercent(
+        if (isAudioAmplificationAvailable) {
+            _uiState.value.playerVolumePercent
+        } else {
+            PLAYER_VOLUME_DEFAULT_PERCENT
+        }
     )
     _uiState.update { state ->
         state.copy(
@@ -1496,15 +1537,26 @@ fun PlayerRuntimeController.onEvent(event: PlayerEvent) {
                 }
             }
         }
+        is PlayerEvent.OnSetPlayerVolumePercent -> {
+            val clampedPercent = event.percent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
+            applyPlayerVolume(clampedPercent)
+            if (_uiState.value.persistAudioAmplification) {
+                scope.launch {
+                    playerSettingsDataStore.setPlayerVolumePercent(clampedPercent)
+                }
+            }
+        }
         is PlayerEvent.OnSetPersistAudioAmplification -> {
             val currentDb = _uiState.value.audioAmplificationDb
             val currentCenterMixDb = _uiState.value.centerMixLevelDb
+            val currentVolumePercent = _uiState.value.playerVolumePercent
             _uiState.update { it.copy(persistAudioAmplification = event.enabled) }
             scope.launch {
                 playerSettingsDataStore.setPersistAudioAmplification(
                     enabled = event.enabled,
                     dbToPersist = if (event.enabled) currentDb else null,
-                    centerMixDbToPersist = if (event.enabled) currentCenterMixDb else null
+                    centerMixDbToPersist = if (event.enabled) currentCenterMixDb else null,
+                    volumePercentToPersist = if (event.enabled) currentVolumePercent else null
                 )
             }
         }

@@ -39,6 +39,7 @@ import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.QrCode2
 import androidx.compose.material.icons.filled.Reorder
@@ -455,6 +456,15 @@ fun AddonManagerScreen(
                 )
             }
 
+            if (!viewModel.isReadOnly) {
+                item {
+                    ImportFromOfficialCard(
+                        isImporting = uiState.isImportingFromOfficial,
+                        onClick = { viewModel.importFromOfficialApp() }
+                    )
+                }
+            }
+
             if (!viewModel.isReadOnly && !isEssential && hasHomeVisibleCatalogs) {
                 item {
                     CatalogOrderEntryCard(onClick = onNavigateToCatalogOrder)
@@ -722,6 +732,66 @@ private fun ManageFromPhoneCard(
                 modifier = Modifier.size(20.dp),
                 tint = NuvioTheme.colors.TextSecondary
             )
+        }
+    }
+}
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+private fun ImportFromOfficialCard(
+    isImporting: Boolean,
+    onClick: () -> Unit
+) {
+    var isFocused by remember { mutableStateOf(false) }
+
+    Surface(
+        onClick = { if (!isImporting) onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .onFocusChanged { isFocused = it.isFocused }
+            .semantics { role = Role.Button },
+        colors = ClickableSurfaceDefaults.colors(
+            containerColor = NuvioTheme.colors.BackgroundCard,
+            focusedContainerColor = NuvioTheme.colors.FocusBackground
+        ),
+        border = ClickableSurfaceDefaults.border(
+            focusedBorder = Border(
+                border = NuvioTheme.focusRing.border(NuvioTheme.spacing.xxs),
+                shape = RoundedCornerShape(18.dp)
+            )
+        ),
+        shape = ClickableSurfaceDefaults.shape(RoundedCornerShape(18.dp)),
+        scale = ClickableSurfaceDefaults.scale(focusedScale = 1.01f)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.Download,
+                contentDescription = null,
+                modifier = Modifier.size(28.dp),
+                tint = if (isFocused) NuvioTheme.colors.Secondary else NuvioTheme.colors.TextSecondary
+            )
+            Spacer(modifier = Modifier.width(NuvioTheme.spacing.lg))
+            Column {
+                Text(
+                    text = stringResource(R.string.addon_import_official_title),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = NuvioTheme.colors.TextPrimary,
+                )
+                Text(
+                    text = if (isImporting) {
+                        stringResource(R.string.addon_import_official_running)
+                    } else {
+                        stringResource(R.string.addon_import_official_subtitle)
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = NuvioTheme.colors.TextSecondary
+                )
+            }
         }
     }
 }

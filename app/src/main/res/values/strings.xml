@@ -834,7 +834,7 @@
     <string name="audio_decoder_prefer_app">Prefer app decoders (FFmpeg)</string>
     <string name="audio_decoder_priority">Decoder Priority</string>
     <string name="audio_enable_downmix_title">Enable downmix</string>
-    <string name="audio_enable_downmix_subtitle">Uses the FFmpeg downmix path. Requires Prefer app decoders (FFmpeg). When disabled, audio follows the previous Android/device path.</string>
+    <string name="audio_enable_downmix_subtitle">Turns surround sound into stereo (choose 2.0 below). Works with any decoder; with Prefer device decoders it uses much less CPU.</string>
     <string name="audio_tunneled">Tunneled Playback</string>
     <string name="audio_tunneled_sub">Hardware-level audio/video sync. May improve playback on some Android TV devices</string>
     <string name="audio_force_optical_passthrough">Force AC-3 Transcoding (Optical/SPDIF)</string>
@@ -1727,6 +1727,12 @@
     <string name="addons_badge_disabled">Disabled</string>
     <string name="addon_manage_from_phone_title">Manage from phone</string>
     <string name="addon_manage_from_phone_subtitle">Scan a QR code to manage addons, catalogs, and collections from your phone</string>
+    <string name="addon_import_official_title">Import from official Nuvio</string>
+    <string name="addon_import_official_subtitle">Copies addons, catalogs and collections from the official app</string>
+    <string name="addon_import_official_running">Importing…</string>
+    <string name="addon_import_official_success">Imported %1$d addons and %2$d collections</string>
+    <string name="addon_import_official_not_found">Official Nuvio not found. Open it on Addons → Manage from phone, press Home and try again.</string>
+    <string name="addon_import_official_empty">The official Nuvio has no addons to import.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Scan a QR code to install or remove add-ons from your phone</string>
     <string name="addon_manage_collections_from_phone_subtitle">Scan a QR code to manage collections from your phone</string>
     <string name="addon_reorder_title">Reorder home catalogs</string>
@@ -1939,6 +1945,11 @@
     <string name="audio_mix_range">Range: %1$d dB to %2$d dB</string>
     <string name="audio_mix_range_saved">Range: %1$d dB to %2$d dB (saved)</string>
     <string name="audio_mix_unavailable">Amplification is not available on this device</string>
+    <string name="audio_volume_label">Volume</string>
+    <string name="audio_volume_value_percent">%1$d%%</string>
+    <string name="audio_volume_range">Lowers the sound in %1$d%% steps (never distorts)</string>
+    <string name="audio_volume_range_saved">Lowers the sound in %1$d%% steps (saved)</string>
+    <string name="audio_volume_unavailable">Volume control is not available on this device</string>
     <string name="audio_center_mix_label">Downmix: Center Mix Level</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>
     <string name="audio_center_mix_help">Center Mix Level in dB relative to metadata or default (-3 dB)</string>

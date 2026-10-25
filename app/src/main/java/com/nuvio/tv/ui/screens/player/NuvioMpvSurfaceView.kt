@@ -270,15 +270,28 @@ class NuvioMpvSurfaceView @JvmOverloads constructor(
         mpv.setPropertyDouble("speed", speed.toDouble())
     }
 
-    fun applyAudioAmplificationDb(db: Int) {
+    /**
+     * Applies amplification (dB) and player volume (percent, attenuation only) together.
+     * mpv's volume property is cubic (gain = (volume / 100)^3), so the volume percent is
+     * applied as a cube root to keep it a linear amplitude factor, matching ExoPlayer.
+     */
+    fun applyAudioAmplificationDb(
+        db: Int,
+        volumePercent: Int = PLAYER_VOLUME_DEFAULT_PERCENT
+    ) {
         if (!initialized) return
         val clampedDb = db.coerceIn(AUDIO_AMPLIFICATION_MIN_DB, AUDIO_AMPLIFICATION_MAX_DB)
+        val clampedVolume = volumePercent.coerceIn(PLAYER_VOLUME_MIN_PERCENT, PLAYER_VOLUME_MAX_PERCENT)
         val linearScale = 10.0.pow(clampedDb / 20.0)
-        val targetVolumePercent = (100.0 * linearScale).coerceIn(0.0, MPV_MAX_VOLUME_PERCENT)
+        val volumeFactor = Math.cbrt(clampedVolume / 100.0)
+        val targetVolumePercent = (100.0 * linearScale * volumeFactor).coerceIn(0.0, MPV_MAX_VOLUME_PERCENT)
         runCatching {
             mpv.setPropertyDouble("volume", targetVolumePercent)
         }.onFailure {
-            Log.w(TAG, "Failed to apply audio amplification on mpv (db=$clampedDb): ${it.message}")
+            Log.w(
+                TAG,
+                "Failed to apply audio amplification on mpv (db=$clampedDb, volume=$clampedVolume%): ${it.message}"
+            )
         }
     }
 

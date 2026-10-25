@@ -1273,6 +1273,12 @@
     <string name="addons_badge_disabled">Desativado</string>
     <string name="addon_manage_from_phone_title">Gerir a partir do telemóvel</string>
     <string name="addon_manage_from_phone_subtitle">Lê um código QR para gerir addons, catálogos e coleções a partir do teu telemóvel</string>
+    <string name="addon_import_official_title">Importar do Nuvio oficial</string>
+    <string name="addon_import_official_subtitle">Copia addons, catálogos e coleções da app oficial</string>
+    <string name="addon_import_official_running">A importar…</string>
+    <string name="addon_import_official_success">Importados %1$d addons e %2$d coleções</string>
+    <string name="addon_import_official_not_found">Nuvio oficial não encontrado. Abra-o em Addons → Gerir pelo telemóvel, carregue em Home e tente de novo.</string>
+    <string name="addon_import_official_empty">O Nuvio oficial não tem addons para importar.</string>
     <string name="addon_manage_addons_only_from_phone_subtitle">Lê um código QR para instalar ou remover addons a partir do teu telemóvel</string>
     <string name="addon_manage_collections_from_phone_subtitle">Lê um código QR para gerir coleções a partir do teu telemóvel</string>
     <string name="addon_reorder_title">Reordenar catálogos iniciais</string>
@@ -1435,6 +1441,11 @@
     <string name="audio_mix_range">Intervalo: %1$d dB a %2$d dB</string>
     <string name="audio_mix_range_saved">Intervalo: %1$d dB a %2$d dB (guardado)</string>
     <string name="audio_mix_unavailable">A amplificação não está disponível neste dispositivo</string>
+    <string name="audio_volume_label">Volume</string>
+    <string name="audio_volume_value_percent">%1$d%%</string>
+    <string name="audio_volume_range">Reduz o som em passos de %1$d%% (não distorce)</string>
+    <string name="audio_volume_range_saved">Reduz o som em passos de %1$d%% (guardado)</string>
+    <string name="audio_volume_unavailable">Controlo de volume não disponível neste dispositivo</string>
     <string name="audio_center_mix_label">Downmix: Nível do Canal Central</string>
     <string name="audio_center_mix_value_db">%1$d dB</string>
     <string name="audio_center_mix_help">Nível do Canal Central em dB relativo aos metadados ou predefinição (-3 dB)</string>
