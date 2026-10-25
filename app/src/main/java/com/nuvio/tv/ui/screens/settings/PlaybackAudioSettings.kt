@@ -72,7 +72,7 @@ internal fun PlaybackAudioSection(
         subtitle = stringResource(R.string.audio_enable_downmix_subtitle),
         checked = settings.effectiveDownmixEnabled,
         onToggle = { onUpdate { setDownmixEnabled(!settings.effectiveDownmixEnabled) } },
-        enabled = enabled && settings.isPreferAppDecoder
+        enabled = enabled
     )
     if (settings.effectiveDownmixEnabled) {
         SettingsActionRow(

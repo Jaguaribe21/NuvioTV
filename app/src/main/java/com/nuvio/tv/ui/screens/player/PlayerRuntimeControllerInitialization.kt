@@ -881,6 +881,14 @@ internal fun PlayerRuntimeController.initializePlayer(
             } else {
                 playerSettings.audioOutputChannels
             }
+            // Stereo downmix of hardware-decoded PCM (no FFmpeg needed). Decode to PCM instead of
+            // passthrough so the soundbar receives the downmixed stereo.
+            val downmixToStereo = effectiveDownmixEnabled && effectiveAudioOutputChannels.channelCount == 2
+            stereoDownmixAudioProcessor.configure(
+                enabled = downmixToStereo,
+                normalize = !playerSettings.maintainOriginalAudioOnDownmix
+            )
+            stereoDownmixAudioProcessor.setCenterMixLevelDb(_uiState.value.centerMixLevelDb)
             if (isBluetoothAudioOutput) {
                 Log.i(
                     PlayerRuntimeController.TAG,
@@ -909,13 +917,14 @@ internal fun PlayerRuntimeController.initializePlayer(
                     if (pv != null) pv.videoBoundsFraction(videoAspectRatio) else null
                 },
                 gainAudioProcessor = gainAudioProcessor,
+                stereoDownmixAudioProcessor = stereoDownmixAudioProcessor,
                 downmixEnabled = effectiveDownmixEnabled,
                 audioOutputChannels = effectiveAudioOutputChannels,
                 downmixNormalizationEnabled = !playerSettings.maintainOriginalAudioOnDownmix,
                 forceOpticalPassthrough = isForcePassthroughActive,
                 bluetoothForcePcm = isBluetoothAudioOutput,
                 playbackSpeedProvider = { _uiState.value.playbackSpeed },
-                initialForcePcm = hasTriedAudioPcmFallback || isBluetoothAudioOutput,
+                initialForcePcm = hasTriedAudioPcmFallback || isBluetoothAudioOutput || downmixToStereo,
                 preferSoftwareAudioOnly = isBluetoothAudioOutput,
                 mapDv7ToHevc = mapDv7ToHevcEnabled,
                 onPlaybackSpeedAwareAudioSinkCreated = { playbackSpeedAwareAudioSink = it },
@@ -2130,6 +2139,7 @@ private class SubtitleOffsetRenderersFactory(
     private val isSidecarAddonSubtitleActiveProvider: () -> Boolean = { false },
     private val videoBoundsFractionProvider: () -> RectF?,
     private val gainAudioProcessor: GainAudioProcessor,
+    private val stereoDownmixAudioProcessor: StereoDownmixAudioProcessor,
     private val downmixEnabled: Boolean,
     private val audioOutputChannels: com.nuvio.tv.data.local.AudioOutputChannels,
     private val downmixNormalizationEnabled: Boolean,
@@ -2214,7 +2224,7 @@ private class SubtitleOffsetRenderersFactory(
         }
             .setEnableFloatOutput(enableFloatOutput)
             .setEnableAudioTrackPlaybackParams(enableAudioTrackPlaybackParams)
-            .setAudioProcessors(arrayOf(gainAudioProcessor))
+            .setAudioProcessors(arrayOf(stereoDownmixAudioProcessor, gainAudioProcessor))
         val baseAudioSink = builder.build()
         val playbackSpeedAwareAudioSink = PlaybackSpeedAwareAudioSink(
             sink = baseAudioSink,

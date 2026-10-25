@@ -217,6 +217,10 @@ internal fun PlayerRuntimeController.applyBluetoothAudioRouteInPlace(isBluetooth
         settings.audioOutputChannels
     }
     ffmpegAudioRenderer?.setForceOpticalPassthrough(forceOptical)
+    stereoDownmixAudioProcessor.configure(
+        enabled = downmixEnabled && outputChannels.channelCount == 2,
+        normalize = !settings.maintainOriginalAudioOnDownmix
+    )
     if (downmixEnabled) {
         ffmpegAudioRenderer?.setAudioOutputChannels(
             outputChannels.ffmpegLayoutName,

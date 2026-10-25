@@ -827,7 +827,7 @@
     <string name="audio_decoder_prefer_app">Preferir decodificadores do app</string>
     <string name="audio_decoder_priority">Prioridade do decodificador</string>
     <string name="audio_enable_downmix_title">Ativar mixagem de áudio (downmix)</string>
-    <string name="audio_enable_downmix_subtitle">Usa o caminho de downmix do FFmpeg. Requer a opção “Preferir decodificadores do app (FFmpeg)”. Quando desativado, o áudio segue o caminho anterior do Android/dispositivo.</string>
+    <string name="audio_enable_downmix_subtitle">Converte som surround em estéreo (escolha 2.0 abaixo). Funciona com qualquer decodificador; com “Preferir decodificadores nativos” usa bem menos processador.</string>
     <string name="audio_tunneled">Reprodução em túnel</string>
     <string name="audio_tunneled_sub">Melhora a sincronização de áudio e vídeo usando o hardware.</string>
     <string name="audio_force_optical_passthrough">Forçar transcodificação AC-3 (Óptico/SPDIF)</string>

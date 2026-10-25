@@ -353,9 +353,12 @@ data class PlayerSettings(
     val isPreferAppDecoder: Boolean
         get() = decoderPriority == 2
 
-    /** FFmpeg downmix only runs when the app decoder is preferred. */
+    /**
+     * Downmix works with any decoder: FFmpeg-decoded audio is downmixed by FFmpeg and
+     * hardware-decoded PCM by [com.nuvio.tv.ui.screens.player.StereoDownmixAudioProcessor].
+     */
     val effectiveDownmixEnabled: Boolean
-        get() = downmixEnabled && isPreferAppDecoder
+        get() = downmixEnabled
 
     /**
      * Tunneled playback cannot share the FFmpeg audio path. Prefer-app decoder
